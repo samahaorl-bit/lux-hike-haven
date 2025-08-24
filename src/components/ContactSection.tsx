@@ -111,7 +111,12 @@ export default function ContactSection() {
                         href="mailto:samaha.orl@gmail.com"
                         className="text-sm text-primary hover:underline"
                       >
-                        samaha.orl@gmail.com
+                        
+
+
+luxtraveler@proton.me
+
+
                       </a>
                     </div>
                   </div>
