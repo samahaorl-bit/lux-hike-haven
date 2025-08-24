@@ -3,7 +3,7 @@
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { Clock, TrendingUp, Camera, Download, Map } from "lucide-react";
+import { Clock, TrendingUp, Camera, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import trail1 from "@/assets/trail-1.jpg";
 import trail2 from "@/assets/trail-2.jpg";
@@ -24,6 +24,7 @@ const hikingTrails = [
     highlights: ["Rock formations", "Ancient forests", "Photography spots"],
     pdfMap: "/hiking-maps/chemin-de-la-moselle-map.pdf",
     gpsCoords: "49.6805, 6.4406",
+    officialUrl: "https://www.mullerthal-trail.lu/en",
   },
   {
     id: 2,
@@ -37,6 +38,7 @@ const hikingTrails = [
     highlights: ["Historic castle", "Valley views", "Riverside path"],
     pdfMap: "/hiking-maps/sentier-des-passionnés-map.pdf",
     gpsCoords: "49.6822, 6.4445",
+    officialUrl: "https://www.visitluxembourg.com/place/vianden-castle",
   },
   {
     id: 3,
@@ -50,6 +52,8 @@ const hikingTrails = [
     highlights: ["Lake views", "Wildlife", "Peaceful paths"],
     pdfMap: "/hiking-maps/circuit-nature-map.pdf",
     gpsCoords: "49.6789, 6.4567",
+    officialUrl:
+      "https://www.alltrails.com/trail/luxembourg/echternach/rund-um-den-echternacher-see",
   },
   {
     id: 4,
@@ -63,6 +67,8 @@ const hikingTrails = [
     highlights: ["Medieval ruins", "Forest trails", "Historical sites"],
     pdfMap: "/hiking-maps/hiking-trail-beaufort-vianden-en.pdf",
     gpsCoords: "49.6805, 6.4406",
+    officialUrl:
+      "https://www.outdooractive.com/en/hikes/beaufort/hikes-in-beaufort/6020964/",
   },
   {
     id: 5,
@@ -76,6 +82,7 @@ const hikingTrails = [
     highlights: ["Highest peak", "Panoramic views", "Challenging terrain"],
     pdfMap: "/hiking-maps/kneff.pdf",
     gpsCoords: "49.6822, 6.4445",
+    officialUrl: "https://www.summitpost.org/kneiff/994436",
   },
 ];
 
@@ -93,15 +100,6 @@ const getDifficultyColor = (difficulty: string) => {
 };
 
 const HikingGuide = () => {
-  const downloadMap = (pdfUrl: string, trailName: string) => {
-    const link = document.createElement("a");
-    link.href = pdfUrl;
-    link.download = `${trailName.toLowerCase().replace(/\s+/g, "-")}-map.pdf`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <section id="hiking" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -111,10 +109,10 @@ const HikingGuide = () => {
             Hiking in Luxembourg: Complete Trail Guide with Maps
           </h1>
           <p className="section-subtitle text-muted-foreground max-w-2xl mx-auto">
-            Discover Luxembourg's best hiking trails with downloadable PDF maps.
-            From scenic riverside walks to challenging mountain paths, explore
-            the natural beauty of Luxembourg starting from our perfectly located
-            apartment in Grevenmacher.
+            Discover Luxembourg's best hiking trails. From scenic riverside
+            walks to challenging mountain paths, explore the natural beauty of
+            Luxembourg starting from our perfectly located apartment in
+            Grevenmacher.
           </p>
         </header>
 
@@ -185,25 +183,13 @@ const HikingGuide = () => {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => downloadMap(trail.pdfMap, trail.name)}
-                      className="flex items-center gap-2 text-xs"
-                    >
-                      <Download className="h-3 w-3" />
-                      Download Map
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
                       onClick={() =>
-                        window.open(
-                          `https://maps.google.com/?q=${trail.gpsCoords}`,
-                          "_blank"
-                        )
+                        window.open(trail.officialUrl ?? trail.pdfMap, "_blank")
                       }
                       className="flex items-center gap-2 text-xs"
                     >
-                      <Map className="h-3 w-3" />
-                      GPS
+                      <ExternalLink className="h-3 w-3" />
+                      Visit Official Site
                     </Button>
                   </div>
                 </CardContent>
